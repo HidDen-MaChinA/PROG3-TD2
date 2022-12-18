@@ -1,0 +1,108 @@
+openapi: 3.0.0
+servers:
+  - url: https://virtserver.swaggerhub.com/hei-ryan/PROG3_TD1/1.0.0
+info:
+  version: "latest"
+  title: PROG3 - TD2
+paths:
+  /Match:
+    get:
+      tags:
+        - Match
+      summary: list of all match
+      operationId: getmatch
+      responses:
+        '200':
+          description: List all match with the team that should do it
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+        '500':
+          description: Internal server error
+  /Team:
+    get:
+      tags:
+        - Teams
+      summary: list of all teams
+      operationId: getteams
+      responses:
+        '200':
+          description: List all team with their player sorted;
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+        '500':
+          description: Internal server error
+  /player:
+    get:
+      tags:
+        - player
+      summary: list of all players
+      operationId: getplayer
+      responses:
+        '200':
+          description: List all the players sorted;
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Player'
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Match:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        date:
+          type: string
+          example: "2022-12-18"
+        time:
+          type: string
+          example: "20:00"
+        team_one:
+          $ref: '#/components/schemas/Team'
+        team_two:
+          $ref: '#/components/schemas/Team'
+    Team:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "argentine"
+        sponsor:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sponsor'
+        member:
+          type: array
+          items:
+            $ref: '#/components/schemas/Player'
+    Player:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: "example"
+    Sponsor:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: "orange"
